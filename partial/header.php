@@ -1,3 +1,6 @@
+<?php
+  $page = basename($_SERVER['REQUEST_URI']);
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,9 +14,15 @@
     <div class="container">
       <header class="d-flex justify-content-center py-3">
         <ul class="nav nav-pills">
-          <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-          <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
+          <li class="nav-item">
+            <a href="index.php" class="nav-link <?php echo ($page == 'index.php' ? 'active' : '') ?>" aria-current="page">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.php" class="nav-link <?php echo ($page == 'about.php' ? 'active' : '') ?>">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="contact.php" class="nav-link <?php echo ($page == 'contact.php' ? 'active' : '') ?>">Contact</a>
+          </li>
         </ul>
       </header>
     </div>

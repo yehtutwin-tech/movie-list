@@ -24,7 +24,7 @@
       
       $tmp = [];
       foreach($movie_list as $movie) {
-        if (str_contains($movie['title'], $title)) {
+        if (str_contains(strtolower($movie['title']), strtolower($title))) {
           $tmp[] = $movie;
         }
       }
