@@ -6,10 +6,43 @@
 
 <?php
   session_start();
+  // session_destroy();
 
   $movie_list = [];
-  if (isset($_SESSION["movie-list"])) {
+  if (
+    isset($_SESSION["movie-list"]) && 
+    count($_SESSION["movie-list"]) > 0
+  ) {
     $movie_list = $_SESSION["movie-list"];
+  } else {
+    $tmp_data = [
+      [
+        "id" => 1,
+        "title" => "Jackie Chan Adventures",
+        "year" => "2000–2005",
+        "type" => "series",
+        "poster" => "./images/jc1.jpg",
+        "created_at" => "2024-08-28 05:43AM"
+      ],
+      [
+        "id" => 2,
+        "title" => "Jackie Chan: My Stunts",
+        "year" => "1999",
+        "type" => "movie",
+        "poster" => "./images/jc2.jpg",
+        "created_at" => "2024-08-28 05:43AM"
+      ],
+      [
+        "id" => 3,
+        "title" => "Jackie Chan Presents: Wushu",
+        "year" => "2008",
+        "type" => "movie",
+        "poster" => "./images/jc3.jpg",
+        "created_at" => "2024-08-28 05:43AM"
+      ],
+    ];
+    $movie_list = $tmp_data;
+    $_SESSION["movie-list"] = $tmp_data;
   }
   // print_r($movie_list);
 ?>
