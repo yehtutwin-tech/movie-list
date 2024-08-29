@@ -1,6 +1,7 @@
 <?php
   include_once("../partial/header.php");
   include_once('../../dbConnection.php');
+  include_once('../../utils/util.php');
 ?>
 
 <h1 class="text-center">Movie List</h1>
@@ -37,10 +38,20 @@
       <td><?= $row['title']; ?></td>
       <td><?= $row['year']; ?></td>
       <td><?= ucfirst($row['type_name']); ?></td>
-      <td><?= $row['created_at']; ?></td>
+      <td><?= dt_format($row['created_at']) ?></td>
       <td>
-        <a href="edit.php?tab=movie&id=<?= $row['id']; ?>">Edit</a>
-        <a href="delete.php?tab=movie&id=<?= $row['id']; ?>">Delete</a>
+        <a
+          href="edit.php?tab=movie&id=<?= $row['id']; ?>"
+          class="btn btn-warning"
+        >
+          <i class="fa-regular fa-pen-to-square"></i>
+        </a>
+        <a
+          href="delete.php?tab=movie&id=<?= $row['id']; ?>"
+          class="btn btn-danger"
+        >
+          <i class="fa-solid fa-trash-can"></i>
+        </a>
       </td>
     </tr>
     <?php } ?>

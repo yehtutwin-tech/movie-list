@@ -1,12 +1,14 @@
-<?php include_once("../partial/header.php"); ?>
+<?php
+  include_once("../partial/header.php");
+  include_once('../../dbConnection.php');
+  include_once('../../utils/util.php');
+?>
 
 <h1 class="text-center">Type List</h1>
 
 <a href="add.php?tab=type" class="btn btn-outline-secondary my-2">Create New</a>
 
 <?php
-  include_once('../../dbConnection.php');
-  
   $sql = "SELECT * FROM types";
 
   $result = $conn->query($sql);
@@ -15,7 +17,6 @@
     die('query failed: ' . $conn->error);
   }
 ?>
-<hr/>
 <table class="table table-bordered table-strped table-hover">
   <thead>
     <tr>
@@ -28,7 +29,7 @@
     <?php while($row = $result->fetch_assoc()) { ?>
     <tr>
       <td><?= $row['name'] ?></td>
-      <td><?= $row['created_at'] ?></td>
+      <td><?= dt_format($row['created_at']) ?></td>
       <td>
         <a
           href="<?= PROJECT_ROOT ?>/admin/type/edit.php?tab=type&id=<?= $row['id'] ?>"
