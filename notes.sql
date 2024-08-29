@@ -1,0 +1,21 @@
+CREATE DATABASE `movie-list`;
+
+CREATE TABLE `types` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `created_at` DATETIME DEFAULT NULL,
+  `updated_at` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `movies` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(100) NOT NULL,
+  `year` VARCHAR(10) DEFAULT NULL,
+  `type_id` INT(11) NOT NULL,
+  `poster` VARCHAR(255) DEFAULT NULL,
+  `created_at` DATETIME DEFAULT NULL,
+  `updated_at` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (type_id) REFERENCES types(id)
+);
