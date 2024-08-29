@@ -41,8 +41,8 @@
       <td><?= ucfirst($row['type_name']); ?></td>
       <td><?= $row['created_at']; ?></td>
       <td>
-        <a href="edit.php?id=<?= $row['id']; ?>">Edit</a>
-        <a href="delete.php?id=<?= $row['id']; ?>">Delete</a>
+        <a href="edit.php?tab=movie&id=<?= $row['id']; ?>">Edit</a>
+        <a href="delete.php?tab=movie&id=<?= $row['id']; ?>">Delete</a>
       </td>
     </tr>
     <?php } ?>

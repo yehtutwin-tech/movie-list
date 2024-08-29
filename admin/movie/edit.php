@@ -1,22 +1,15 @@
-<?php include_once("partial/header.php"); ?>
+<?php
+  include_once("../partial/header.php");
+  include_once('../../dbConnection.php');
+?>
 
 <h1 class="text-center">Create New Movie</h1>
 
-<a href="index.php" class="btn btn-outline-secondary my-2">Back to Listing</a>
+<a href="index.php?tab=movie" class="btn btn-outline-secondary my-2">Back to Listing</a>
 
 <?php
-  session_start();
-
   $error_message = '';
   $success_message = '';
-
-  $id = $_GET["id"];
-
-  $data = null;
-  $movie_list = [];
-  if (isset($_SESSION["movie-list"])) {
-    $movie_list = $_SESSION["movie-list"];
-  }
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['title']) && !empty($_POST['year']) && !empty($_POST['type'])) {
@@ -55,14 +48,23 @@
       $error_message = "All fields are required!";
     }
   }
+
   // find item by id
-  foreach ($movie_list as $index => $movie) {
-    if ($movie['id'] == $id) {
-      $data = $movie;
-      break;
-    }
+  if (!isset($_GET['id'])) {
+    header('Location: index.php?tab=movie');
   }
 
+  $id = $_GET['id'];
+
+  $sql = "SELECT * FROM movies WHERE id=$id";
+
+  $result = $conn->query($sql);
+
+  $row = $result->fetch_assoc();
+
+  if (!$row) {
+    header('Location: idnex.php?tab=movie&err=rnf');
+  }
 ?>
 
 <form method="post" enctype="multipart/form-data">
@@ -85,20 +87,20 @@
     <?php } ?>
     <div class="col-6 mb-3">
       <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" id="title" name="title" value="<?= $data['title'] ?>"/>
+      <input type="text" class="form-control" id="title" name="title" value="<?= $row['title'] ?>"/>
     </div>
     <div class="col-6 mb-3">
       <label for="year" class="form-label">Year</label>
-      <input type="text" class="form-control" id="year" name="year" value="<?= $data['year'] ?>"/>
+      <input type="text" class="form-control" id="year" name="year" value="<?= $row['year'] ?>"/>
     </div>
     <div class="col-6 mb-3">
       <label for="type" class="form-label">Type</label>
-      <input type="text" class="form-control" id="type" name="type" value="<?= $data['type'] ?>"/>
+      <input type="text" class="form-control" id="type" name="type" value="<?= $row['type_id'] ?>"/>
     </div>
     <div class="col-6 mb-3">
       <label for="poster" class="form-label">Poster</label>
       <input type="file" class="form-control" id="poster" name="poster"/>
-      <img src="<?= $data['poster'] ?>" width="150"/>
+      <img src="<?= $row['poster'] ?>" width="150"/>
     </div>
     <div class="col-12">
       <input type="submit" name="submit" value="Update" class="btn btn-primary"/>
@@ -106,4 +108,4 @@
   </div>
 </form>
 
-<?php include_once("partial/footer.php"); ?>
+<?php include_once("../partial/footer.php"); ?>
