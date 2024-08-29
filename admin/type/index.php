@@ -2,7 +2,7 @@
 
 <h1 class="text-center">Type List</h1>
 
-<a href="add.php" class="btn btn-outline-secondary my-2">Create New</a>
+<a href="add.php?tab=type" class="btn btn-outline-secondary my-2">Create New</a>
 
 <?php
   include_once('../../dbConnection.php');
@@ -31,13 +31,13 @@
       <td><?= $row['created_at'] ?></td>
       <td>
         <a
-          href="<?= PROJECT_ROOT ?>/admin/type/edit.php?id=<?= $row['id'] ?>"
+          href="<?= PROJECT_ROOT ?>/admin/type/edit.php?tab=type&id=<?= $row['id'] ?>"
           class="btn btn-warning"
         >
           <i class="fa-regular fa-pen-to-square"></i>
         </a>
         <a
-          href="<?= PROJECT_ROOT ?>/admin/type/delete.php?id=<?= $row['id'] ?>"
+          href="<?= PROJECT_ROOT ?>/admin/type/delete.php?tab=type&id=<?= $row['id'] ?>"
           class="btn btn-danger"
         >
           <i class="fa-solid fa-trash-can"></i>
@@ -47,3 +47,5 @@
     <?php } ?>
   </tbody>
 </table>
+
+<?php include_once("../partial/footer.php"); ?>
