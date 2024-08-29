@@ -1,8 +1,8 @@
 <?php include_once("../partial/header.php"); ?>
 
-<h1 class="text-center">Create Type</h1>
+<h1 class="text-center">Edit Type</h1>
 
-<a href="index.php?tab=movie" class="btn btn-outline-secondary my-2">Back to Listing</a>
+<a href="index.php?tab=type" class="btn btn-outline-secondary my-2">Back to Listing</a>
 
 <?php
   include_once('../../dbConnection.php');

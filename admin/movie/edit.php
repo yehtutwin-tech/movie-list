@@ -3,7 +3,7 @@
   include_once('../../dbConnection.php');
 ?>
 
-<h1 class="text-center">Create New Movie</h1>
+<h1 class="text-center">Edit Movie</h1>
 
 <a href="index.php?tab=movie" class="btn btn-outline-secondary my-2">Back to Listing</a>
 
@@ -12,32 +12,37 @@
   $success_message = '';
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST['title']) && !empty($_POST['year']) && !empty($_POST['type'])) {
+    if (!empty($_POST['id']) && !empty($_POST['title']) && !empty($_POST['year']) && !empty($_POST['type_id'])) {
       
+      $id = $_POST['id'];
       $title = $_POST['title'];
       $year = $_POST['year'];
-      $type = $_POST['type'];
+      $type_id = $_POST['type_id'];
 
       $file = $_FILES['poster'];
 
-      $upload_file = './images/' . $file['name'];
+      if ($file['name']) {
 
-      move_uploaded_file(
-        $file['tmp_name'],
-        $upload_file,
-      );
+        $upload_file = '../images/' . $file['name'];
 
-      foreach ($movie_list as $index => $movie) {
-        if ($movie['id'] == $id) {
-          $movie['title'] = $title;
-          $movie['year'] = $year;
-          $movie['type'] = $type;
-          $movie["poster"] = $upload_file;
+        move_uploaded_file(
+          $file['tmp_name'],
+          $upload_file,
+        );
 
-          $movie_list[$index] = $movie;
-          $_SESSION["movie-list"] = $movie_list;
-          break;
-        }
+        // update db with poster
+        $sql = "UPDATE movies SET `title`='$title', `year`='$year', `type_id`='$type_id', `poster`='$upload_file', `updated_at`=now() WHERE id=$id";
+
+      } else {
+
+        // update db w/o poster
+        $sql = "UPDATE movies SET `title`='$title', `year`='$year', `type_id`='$type_id', `updated_at`=now() WHERE id=$id";
+      }
+
+      $result = $conn->query($sql);
+
+      if (!$result) {
+        die('query failed: ' . $conn->error);
       }
 
       // header('Location: index.php');
@@ -65,9 +70,13 @@
   if (!$row) {
     header('Location: idnex.php?tab=movie&err=rnf');
   }
+
+  $sql_types = "SELECT * FROM types";
+  $result_types = $conn->query($sql_types);
 ?>
 
 <form method="post" enctype="multipart/form-data">
+  <input type="hidden" name="id" value="<?= $id ?>" />
   <div class="row my-3">
     <?php if ($error_message) { ?>
     <div class="col-12 mb-3">
@@ -95,7 +104,16 @@
     </div>
     <div class="col-6 mb-3">
       <label for="type" class="form-label">Type</label>
-      <input type="text" class="form-control" id="type" name="type" value="<?= $row['type_id'] ?>"/>
+      <select class="form-control" name="type_id">
+        <?php while($types = $result_types->fetch_assoc()) { ?>
+          <option
+            value="<?= $types['id'] ?>"
+            <?= $types['id'] == $row['type_id'] ? 'selected' : '' ?>
+          >
+            <?= ucfirst($types['name']) ?>
+          </option>
+        <?php } ?>
+      </select>
     </div>
     <div class="col-6 mb-3">
       <label for="poster" class="form-label">Poster</label>

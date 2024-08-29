@@ -10,7 +10,7 @@
 <?php
   $movie_list = [];
   
-  $sql = "SELECT movies.*, types.name AS type_name FROM movies INNER JOIN types ON movies.type_id = types.id";
+  $sql = "SELECT `movies`.*, `types`.`name` AS type_name FROM `movies` INNER JOIN `types` ON `movies`.`type_id` = `types`.`id` ORDER BY `movies`.`id` DESC";
 
   $result = $conn->query($sql);
 

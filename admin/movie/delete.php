@@ -1,20 +1,12 @@
 <?php
-  session_start();
+  include_once('../../dbConnection.php');
 
-  $id = $_GET["id"];
+  if (isset($_GET['id'])) {
+    $id = $_GET["id"];
 
-  
-  if (isset($_SESSION["movie-list"])) {
-    $movie_list = $_SESSION["movie-list"];
-    // remove from array by id
-    foreach ($movie_list as $index => $movie) {
-      if ($movie['id'] == $id) {
-        unset($movie_list[$index]);
+    $sql = "DELETE FROM movies WHERE `id`=$id";
 
-        $_SESSION["movie-list"] = $movie_list;
-        break;
-      }
-    }
-
-    header("Location: index.php");
+    $conn->query($sql);
   }
+
+  header("Location: index.php?tab=movie");
