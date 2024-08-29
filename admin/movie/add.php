@@ -12,11 +12,11 @@
   $success_message = '';
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST['title']) && !empty($_POST['year']) && !empty($_POST['type'])) {
+    if (!empty($_POST['title']) && !empty($_POST['year']) && !empty($_POST['type_id'])) {
       
       $title = $_POST['title'];
       $year = $_POST['year'];
-      $type_id = 1; // $_POST['type'];
+      $type_id = $_POST['type_id'];
 
       $file = $_FILES['poster'];
 
@@ -43,6 +43,9 @@
       $error_message = "All fields are required!";
     }
   }
+  
+  $sql_types = "SELECT * FROM types";
+  $result_types = $conn->query($sql_types);
 ?>
 
 <form method="post" enctype="multipart/form-data">
@@ -73,7 +76,13 @@
     </div>
     <div class="col-6 mb-3">
       <label for="type" class="form-label">Type</label>
-      <input type="text" class="form-control" id="type" name="type"/>
+      <select class="form-control" name="type_id">
+        <?php while($types = $result_types->fetch_assoc()) { ?>
+          <option value="<?= $types['id'] ?>">
+            <?= ucfirst($types['name']) ?>
+          </option>
+        <?php } ?>
+      </select>
     </div>
     <div class="col-6 mb-3">
       <label for="poster" class="form-label">Poster</label>

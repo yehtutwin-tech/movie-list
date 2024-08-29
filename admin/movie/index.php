@@ -10,7 +10,7 @@
 <?php
   $movie_list = [];
   
-  $sql = "SELECT * FROM movies";
+  $sql = "SELECT movies.*, types.name AS type_name FROM movies INNER JOIN types ON movies.type_id = types.id";
 
   $result = $conn->query($sql);
 
@@ -38,7 +38,7 @@
       </td>
       <td><?= $row['title']; ?></td>
       <td><?= $row['year']; ?></td>
-      <td><?= $row['type_id']; ?></td>
+      <td><?= ucfirst($row['type_name']); ?></td>
       <td><?= $row['created_at']; ?></td>
       <td>
         <a href="edit.php?id=<?= $row['id']; ?>">Edit</a>
