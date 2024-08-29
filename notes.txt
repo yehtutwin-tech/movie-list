@@ -1,0 +1,7 @@
+- user home page tabe highlight
+- font awesome icon
+- dt format
+- error message for delete (pass from url)
+- foreign key set null
+- 
+

@@ -1,4 +1,7 @@
-<?php include_once('partial/header.php'); ?>
+<?php
+  include_once('partial/header.php');
+  include_once('dbConnection.php');
+?>
 
 <div class="row my-3">
   <div class="col-4 offset-4 input-group">
@@ -12,37 +15,31 @@
 </div>
 <div class="row my-3">
   <?php
-    session_start();
-
-    $movie_list = [];
-    if (isset($_SESSION["movie-list"])) {
-      $movie_list = $_SESSION["movie-list"];
-    }
+    $sql = "SELECT `movies`.*, `types`.`name` AS type_name FROM `movies` INNER JOIN `types` ON `movies`.`type_id` = `types`.`id`";
 
     if (isset($_GET['title'])) {
       $title = $_GET['title'];
-      
-      $tmp = [];
-      foreach($movie_list as $movie) {
-        if (str_contains(strtolower($movie['title']), strtolower($title))) {
-          $tmp[] = $movie;
-        }
-      }
 
-      if (count($tmp) > 0) {
-        $movie_list = $tmp;
-      }
+      $sql .= " WHERE `title` LIKE '%$title%'";
     }
     
-    foreach($movie_list as $movie) {
+    $sql .= " ORDER BY `movies`.`id` DESC";
+
+    $result = $conn->query($sql);
+
+    if (!$result) {
+      die('query failed: ' . $conn->error);
+    }
+
+    while($row = $result->fetch_assoc()) { 
   ?>
   <div class="col-3 mb-3">
     <div class="card" style="width: 18rem;">
-      <img src="admin/<?= $movie['poster'] ?>" class="card-img-top" alt="Img">
+      <img src="admin/<?= str_replace('../', './', $row['poster']) ?>" class="card-img-top" alt="Img">
       <div class="card-body">
-        <h5 class="card-title"><?= $movie['title'] ?></h5>
-        Year: <?= $movie['year'] ?>
-        Type: <?= $movie['type'] ?>
+        <h5 class="card-title"><?= $row['title'] ?></h5>
+        Year: <?= $row['year'] ?>
+        Type: <?= $row['type_name'] ?>
       </div>
     </div>
   </div>
