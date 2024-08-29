@@ -1,12 +1,13 @@
-<?php include_once("partial/header.php"); ?>
+<?php
+  include_once("../partial/header.php");
+  include_once('../../dbConnection.php');
+?>
 
 <h1 class="text-center">Create New Movie</h1>
 
-<a href="index.php" class="btn btn-outline-secondary my-2">Back to Listing</a>
+<a href="index.php?tab=movie" class="btn btn-outline-secondary my-2">Back to Listing</a>
 
 <?php
-  session_start();
-
   $error_message = '';
   $success_message = '';
 
@@ -15,27 +16,26 @@
       
       $title = $_POST['title'];
       $year = $_POST['year'];
-      $type = $_POST['type'];
+      $type_id = 1; // $_POST['type'];
 
       $file = $_FILES['poster'];
 
-      $upload_file = './images/' . $file['name'];
+      $upload_file = '../images/' . $file['name'];
 
       move_uploaded_file(
         $file['tmp_name'],
         $upload_file,
       );
+      
+      // insert into db
+      // $date_now = date('Y-m-d h:i:s');
+      $sql = "INSERT INTO movies (`title`, `year`, `type_id`, `poster`, `created_at`, `updated_at`) VALUES ('$title', '$year', '$type_id', '$upload_file', now(), now())";
 
-      $movie = [
-        "id" => time(),
-        "title" => $title,
-        "year" => $year,
-        "type" => $type,
-        "poster" => $upload_file,
-        "created_at" => date("Y-m-d h:iA"),
-      ];
+      $result = $conn->query($sql);
 
-      $_SESSION['movie-list'][] = $movie;
+      if (!$result) {
+        die('query failed: ' . $conn->error);
+      }
 
       $success_message = "Record created successfully!";
     }
@@ -85,4 +85,4 @@
   </div>
 </form>
 
-<?php include_once("partial/footer.php"); ?>
+<?php include_once("../partial/footer.php"); ?>

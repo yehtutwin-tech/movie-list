@@ -1,12 +1,13 @@
-<?php include_once("../partial/header.php"); ?>
+<?php
+  include_once("../partial/header.php");
+  include_once('../../dbConnection.php');
+?>
 
 <h1 class="text-center">Create Type</h1>
 
 <a href="index.php?tab=type" class="btn btn-outline-secondary my-2">Back to Listing</a>
 
 <?php
-  include_once('../../dbConnection.php');
-
   $error_message = '';
   $success_message = '';
 
