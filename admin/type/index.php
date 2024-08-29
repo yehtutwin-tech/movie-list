@@ -1,3 +1,9 @@
+<?php include_once("../partial/header.php"); ?>
+
+<h1 class="text-center">Type List</h1>
+
+<a href="add.php" class="btn btn-outline-secondary my-2">Create New</a>
+
 <?php
   include_once('../../dbConnection.php');
   

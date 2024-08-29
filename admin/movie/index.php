@@ -1,4 +1,4 @@
-<?php include_once("partial/header.php"); ?>
+<?php include_once("../partial/header.php"); ?>
 
 <h1 class="text-center">Movie List</h1>
 
@@ -36,19 +36,19 @@
     <?php foreach($movie_list as $movie) { ?>
     <tr>
       <td>
-        <img src="<?php echo $movie['poster'] ?>" width="50" />
+        <img src="<?= '../'.$movie['poster'] ?>" width="50" />
       </td>
-      <td><?php echo $movie['title']; ?></td>
-      <td><?php echo $movie['year']; ?></td>
-      <td><?php echo $movie['type']; ?></td>
-      <td><?php echo $movie['created_at']; ?></td>
+      <td><?= $movie['title']; ?></td>
+      <td><?= $movie['year']; ?></td>
+      <td><?= $movie['type']; ?></td>
+      <td><?= $movie['created_at']; ?></td>
       <td>
-        <a href="edit.php?id=<?php echo $movie['id']; ?>">Edit</a>
-        <a href="delete.php?id=<?php echo $movie['id']; ?>">Delete</a>
+        <a href="edit.php?id=<?= $movie['id']; ?>">Edit</a>
+        <a href="delete.php?id=<?= $movie['id']; ?>">Delete</a>
       </td>
     </tr>
     <?php } ?>
   </tbody>
 </table>
 
-<?php include_once("partial/footer.php"); ?>
+<?php include_once("../partial/footer.php"); ?>
