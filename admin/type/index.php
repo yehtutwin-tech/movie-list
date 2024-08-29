@@ -6,7 +6,10 @@
 
 <h1 class="text-center">Type List</h1>
 
-<a href="add.php?tab=type" class="btn btn-outline-secondary my-2">Create New</a>
+<a href="add.php?tab=type" class="btn btn-outline-secondary my-2">
+  <i class="fa-solid fa-plus"></i>
+  Create New
+</a>
 
 <?php
   $sql = "SELECT * FROM types";

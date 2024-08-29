@@ -5,7 +5,10 @@
 
 <h1 class="text-center">Edit Movie</h1>
 
-<a href="index.php?tab=movie" class="btn btn-outline-secondary my-2">Back to Listing</a>
+<a href="index.php?tab=movie" class="btn btn-outline-secondary my-2">
+  <i class="fa-solid fa-arrow-left"></i>
+  Back to Listing
+</a>
 
 <?php
   $error_message = '';
@@ -121,7 +124,10 @@
       <img src="<?= $row['poster'] ?>" width="150"/>
     </div>
     <div class="col-12">
-      <input type="submit" name="submit" value="Update" class="btn btn-primary"/>
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Update
+      </button>
     </div>
   </div>
 </form>

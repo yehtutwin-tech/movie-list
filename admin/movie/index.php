@@ -6,10 +6,13 @@
 
 <h1 class="text-center">Movie List</h1>
 
-<a href="add.php?tab=movie" class="btn btn-outline-secondary my-2">Create New</a>
+<a href="add.php?tab=movie" class="btn btn-outline-secondary my-2">
+  <i class="fa-solid fa-plus"></i>
+  Create New
+</a>
 
 <?php
-  $sql = "SELECT `movies`.*, `types`.`name` AS type_name FROM `movies` INNER JOIN `types` ON `movies`.`type_id` = `types`.`id` ORDER BY `movies`.`id` DESC";
+  $sql = "SELECT `movies`.*, `types`.`name` AS type_name FROM `movies` LEFT JOIN `types` ON `movies`.`type_id` = `types`.`id` ORDER BY `movies`.`id` DESC";
 
   $result = $conn->query($sql);
 

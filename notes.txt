@@ -1,6 +1,5 @@
-- user home page tabe highlight
-- font awesome icon
 - error message for delete (pass from url)
-- foreign key set null
-- 
+- delete confirm box
 
+* foreign key set null will hide the rows with inner join
+* changing above will need to modify left join to dislay the movie data

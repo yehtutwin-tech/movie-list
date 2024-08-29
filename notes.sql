@@ -17,5 +17,16 @@ CREATE TABLE `movies` (
   `created_at` DATETIME DEFAULT NULL,
   `updated_at` DATETIME DEFAULT NULL,
   PRIMARY KEY (`id`),
+  ADD CONSTRAINT fk_type_id
   FOREIGN KEY (type_id) REFERENCES types(id)
+  ON DELETE SET NULL
 );
+
+-- for those only want to
+-- modify column nullable
+-- add foreign key constraint
+ALTER TABLE movies
+MODIFY COLUMN type_id INT(11),
+ADD CONSTRAINT fk_type_id
+FOREIGN KEY(type_id) REFERENCES types(id)
+ON DELETE SET NULL;

@@ -5,7 +5,10 @@
 
 <h1 class="text-center">Create New Movie</h1>
 
-<a href="index.php?tab=movie" class="btn btn-outline-secondary my-2">Back to Listing</a>
+<a href="index.php?tab=movie" class="btn btn-outline-secondary my-2">
+  <i class="fa-solid fa-arrow-left"></i>
+  Back to Listing
+</a>
 
 <?php
   $error_message = '';
@@ -89,7 +92,10 @@
       <input type="file" class="form-control" id="poster" name="poster"/>
     </div>
     <div class="col-12">
-      <input type="submit" name="submit" value="Create" class="btn btn-primary"/>
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Create
+      </button>
     </div>
   </div>
 </form>

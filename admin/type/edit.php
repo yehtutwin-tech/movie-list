@@ -2,7 +2,10 @@
 
 <h1 class="text-center">Edit Type</h1>
 
-<a href="index.php?tab=type" class="btn btn-outline-secondary my-2">Back to Listing</a>
+<a href="index.php?tab=type" class="btn btn-outline-secondary my-2">
+  <i class="fa-solid fa-arrow-left"></i>
+  Back to Listing
+</a>
 
 <?php
   include_once('../../dbConnection.php');
@@ -75,7 +78,10 @@
       <input type="text" class="form-control" id="name" name="name" value="<?= $row['name'] ?>"/>
     </div>
     <div class="col-12">
-      <input type="submit" name="submit" value="Update" class="btn btn-primary"/>
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Update
+      </button>
     </div>
   </div>
 </form>
